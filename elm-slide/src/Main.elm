@@ -1,36 +1,12 @@
-port module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
+module Main exposing (Country, Model, Msg(..), init, main, update, view)
 
 import Browser
-import Css exposing (..)
-import Css.Global
-import Html exposing (Attribute, Html, div, input, text)
+import Html exposing (Attribute, Html, div, input, text, img, h1)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
-import Html.Styled.Attributes exposing (css)
-import Http
 
 
-
--- html : List Style -> Snippet
--- html =
---   [height "100%"]
--- main: Program Model Msg1
--- global : List Snippet -> Html msg
--- global =
---     Css.Global.global
---         [ Css.Global.html
---             [ Css.height (pct 100)
---             ]
---         , Css.Global.body
---             [ Css.height (pct 100)
---             ]
---         ]
-
-
-main =
-    Browser.element { init = init, update = update, subscriptions = subscriptions, view = view }
-
-
+---- MODEL ----
 type alias Country =
     { code : String
     , name : String
@@ -39,26 +15,20 @@ type alias Country =
     }
 
 
-
--- type Request
---     = Failure
---     | Loading
---     | Success String
-
-
 type alias Model =
     { countrySearch : String
     , searchResults : List Country
     }
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
+init : ( Model, Cmd Msg )
+init =
     ( Model "" []
     , Cmd.none
     )
 
 
+---- UPDATE ----
 type Msg
     = Search String
 
@@ -70,24 +40,7 @@ update msg model =
             ( { model | countrySearch = searchTerm }, Cmd.none )
 
 
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ input [ placeholder "Search country", value model.countrySearch, onInput Search ] []
-        , div [] [ text model.countrySearch ]
-        , resultList model
-        ]
-
-
-
--- render functions
-
-
+---- VIEW ----
 resultList : Model -> Html msg
 resultList model =
     if List.length model.searchResults == 0 && String.length model.countrySearch == 0 then
@@ -95,3 +48,24 @@ resultList model =
 
     else
         div [] [ text "all the results" ]
+
+view : Model -> Html Msg
+view model =
+    div []
+        [ img [ src "/logo.svg" ] []
+        , h1 [] [ text "Your Elm App is working!" ]
+        , input [ placeholder "Search country", value model.countrySearch, onInput Search ] []
+        , div [] [ text model.countrySearch ]
+        , resultList model
+        ]
+
+
+---- PROGRAM ----
+main : Program () Model Msg
+main =
+    Browser.element
+        { view = view
+        , init = \_ -> init
+        , update = update
+        , subscriptions = always Sub.none
+        }
