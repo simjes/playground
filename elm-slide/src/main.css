@@ -5,15 +5,23 @@
   More context in the issue:
     https://github.com/halfzebra/create-elm-app/issues/320
 */
-[data-elm-hot="true"] {
+[data-elm-hot='true'] {
   height: inherit;
 }
 
+html,
+body,
+#elm-slide {
+  height: 100%;
+}
+
 body {
-  font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande', 'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande',
+    'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
   margin: 0;
   text-align: center;
-  color: #293c4b;
+  color: #ffffff;
+  background: #1b1b35;
 }
 
 h1 {
@@ -23,4 +31,18 @@ h1 {
 img {
   margin: 20px 0;
   max-width: 200px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+input {
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px solid #24d8ff;
+  background: #24243e;
 }
