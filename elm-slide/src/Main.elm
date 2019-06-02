@@ -5,7 +5,7 @@ import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.OptionalArgument as OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, with, withDefault)
-import Html exposing (Attribute, Html, div, h1, h2, header, img, input, main_, p, section, text)
+import Html exposing (Attribute, Html, div, h1, h2, header, img, input, li, main_, p, section, text, ul)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import RemoteData exposing (RemoteData)
@@ -67,15 +67,13 @@ makeRequest =
 
 type alias Model =
     { countrySearch : String
-
-    -- , people : PeopleConnection
-    , didRequest : Bool
+    , peopleResponse : RemoteData (Graphql.Http.Error Response) Response
     }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "" False
+    ( Model "" RemoteData.Loading
     , makeRequest
     )
 
@@ -95,8 +93,8 @@ update msg model =
         Search searchTerm ->
             ( { model | countrySearch = searchTerm }, Cmd.none )
 
-        StarWarsResponse wat ->
-            ( { model | didRequest = True }, Cmd.none )
+        StarWarsResponse response ->
+            ( { model | peopleResponse = response }, Cmd.none )
 
 
 
@@ -115,16 +113,7 @@ mainContent model =
         , h2 [] [ text "This application is part of the simjes playground" ]
         , p [] [ text "The playground is a repository for creating small and simple applications to test out new technologies and frameworks" ]
         , slide model
-        , text ("Did request: " ++ fuckingBool model.didRequest)
         ]
-
-
-fuckingBool didRequest =
-    if didRequest then
-        "did it"
-
-    else
-        "did not"
 
 
 slide : Model -> Html Msg
@@ -132,20 +121,57 @@ slide model =
     section []
         [ input [ placeholder "Search country", value model.countrySearch, onInput Search ] []
         , div [] [ text model.countrySearch ]
-
-        -- , resultList model
+        , renderResponse model.peopleResponse
         ]
 
 
+renderResponse : RemoteData (Graphql.Http.Error Response) Response -> Html Msg
+renderResponse peopleResponse =
+    case peopleResponse of
+        RemoteData.NotAsked ->
+            text "Init"
 
--- resultList :
---     Model
---     -> Html msg -- Msg?
--- resultList model =
---     if List.length model.searchResults == 0 && String.length model.countrySearch == 0 then
---         div [] [ text "no results" ]
---     else
---         div [] [ text "all the results" ]
+        RemoteData.Loading ->
+            text "Loading..."
+
+        RemoteData.Failure err ->
+            text "An Error occured"
+
+        RemoteData.Success result ->
+            case result of
+                Just allPeople ->
+                    case allPeople.people of
+                        Just people ->
+                            div []
+                                [ renderPersonList people ]
+
+                        Nothing ->
+                            div []
+                                []
+
+                Nothing ->
+                    text "No results"
+
+
+renderPersonList : List (Maybe Person) -> Html Msg
+renderPersonList people =
+    people
+        |> List.map renderPerson
+        |> ul []
+
+
+renderPerson : Maybe Person -> Html Msg
+renderPerson person =
+    case person of
+        Just p ->
+            li []
+                [ text (p.name |> Maybe.withDefault "???")
+                , text (p.birthYear |> Maybe.withDefault "???")
+                , text (p.eyeColor |> Maybe.withDefault "???")
+                ]
+
+        Nothing ->
+            text ""
 
 
 view : Model -> Html Msg
