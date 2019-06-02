@@ -111,8 +111,8 @@ mainContent : Model -> Html Msg
 mainContent model =
     main_ []
         [ h1 [] [ text "Elm-slide" ]
-        , h2 [] [ text "This application is part of the simjes playground" ]
-        , p [] [ text "The playground is a repository for creating small and simple applications to test out new technologies and frameworks" ]
+        , p [] [ text "Every playground needs a slide." ]
+        , p [] [ text "The playground is a repository for creating small and simple applications to test out new technologies and frameworks." ]
         , slide model
         ]
 
@@ -120,7 +120,7 @@ mainContent model =
 slide : Model -> Html Msg
 slide model =
     section []
-        [ input [ placeholder "Search character", value model.search, onInput Search ] []
+        [ input [ class "search", placeholder "Search character", value model.search, onInput Search ] []
         , renderResponse model.peopleResponse model.search
         ]
 
