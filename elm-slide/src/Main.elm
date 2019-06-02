@@ -120,7 +120,6 @@ slide : Model -> Html Msg
 slide model =
     section []
         [ input [ placeholder "Search country", value model.countrySearch, onInput Search ] []
-        , div [] [ text model.countrySearch ]
         , renderResponse model.peopleResponse
         ]
 
@@ -142,8 +141,7 @@ renderResponse peopleResponse =
                 Just allPeople ->
                     case allPeople.people of
                         Just people ->
-                            div []
-                                [ renderPersonList people ]
+                            renderPersonList people
 
                         Nothing ->
                             div []
@@ -157,17 +155,15 @@ renderPersonList : List (Maybe Person) -> Html Msg
 renderPersonList people =
     people
         |> List.map renderPerson
-        |> ul []
+        |> ul [ class "people" ]
 
 
 renderPerson : Maybe Person -> Html Msg
 renderPerson person =
     case person of
         Just p ->
-            li []
-                [ text (p.name |> Maybe.withDefault "???")
-                , text (p.birthYear |> Maybe.withDefault "???")
-                , text (p.eyeColor |> Maybe.withDefault "???")
+            li [ class "person" ]
+                [ div [] [ text (p.name |> Maybe.withDefault "11111111111") ]
                 ]
 
         Nothing ->
