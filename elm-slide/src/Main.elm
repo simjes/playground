@@ -157,8 +157,23 @@ renderResponse peopleResponse search =
 renderPersonList : String -> List Person -> Html Msg
 renderPersonList search people =
     people
+        |> List.filter (searchFilter search)
         |> List.map renderPerson
         |> ul [ class "people" ]
+
+
+searchFilter : String -> Person -> Bool
+searchFilter search person =
+    case person.name of
+        Just name ->
+            if String.contains (String.toLower search) (String.toLower name) then
+                True
+
+            else
+                False
+
+        Nothing ->
+            False
 
 
 renderPerson : Person -> Html Msg
