@@ -8,6 +8,7 @@ import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, with, withDe
 import Html exposing (Attribute, Html, div, h1, h2, header, img, input, li, main_, p, section, text, ul)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
+import Maybe.Extra
 import RemoteData exposing (RemoteData)
 import StarWars.Object
 import StarWars.Object.PeopleConnection as PeopleConnection
@@ -66,7 +67,7 @@ makeRequest =
 
 
 type alias Model =
-    { countrySearch : String
+    { search : String
     , peopleResponse : RemoteData (Graphql.Http.Error Response) Response
     }
 
@@ -91,7 +92,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Search searchTerm ->
-            ( { model | countrySearch = searchTerm }, Cmd.none )
+            ( { model | search = searchTerm }, Cmd.none )
 
         StarWarsResponse response ->
             ( { model | peopleResponse = response }, Cmd.none )
@@ -119,29 +120,31 @@ mainContent model =
 slide : Model -> Html Msg
 slide model =
     section []
-        [ input [ placeholder "Search country", value model.countrySearch, onInput Search ] []
-        , renderResponse model.peopleResponse
+        [ input [ placeholder "Search character", value model.search, onInput Search ] []
+        , renderResponse model.peopleResponse model.search
         ]
 
 
-renderResponse : RemoteData (Graphql.Http.Error Response) Response -> Html Msg
-renderResponse peopleResponse =
+renderResponse : RemoteData (Graphql.Http.Error Response) Response -> String -> Html Msg
+renderResponse peopleResponse search =
     case peopleResponse of
         RemoteData.NotAsked ->
-            text "Init"
+            text ""
 
         RemoteData.Loading ->
-            text "Loading..."
+            div [] [ text "Loading..." ]
 
         RemoteData.Failure err ->
-            text "An Error occured"
+            div [] [ text "An error occured" ]
 
         RemoteData.Success result ->
             case result of
                 Just allPeople ->
                     case allPeople.people of
                         Just people ->
-                            renderPersonList people
+                            people
+                                |> Maybe.Extra.values
+                                |> renderPersonList search
 
                         Nothing ->
                             div []
@@ -151,19 +154,19 @@ renderResponse peopleResponse =
                     text "No results"
 
 
-renderPersonList : List (Maybe Person) -> Html Msg
-renderPersonList people =
+renderPersonList : String -> List Person -> Html Msg
+renderPersonList search people =
     people
         |> List.map renderPerson
         |> ul [ class "people" ]
 
 
-renderPerson : Maybe Person -> Html Msg
+renderPerson : Person -> Html Msg
 renderPerson person =
-    case person of
-        Just p ->
+    case person.name of
+        Just name ->
             li [ class "person" ]
-                [ div [] [ text (p.name |> Maybe.withDefault "11111111111") ]
+                [ div [] [ text name ]
                 ]
 
         Nothing ->
