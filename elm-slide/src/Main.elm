@@ -5,7 +5,7 @@ import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.OptionalArgument as OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, with, withDefault)
-import Html exposing (Attribute, Html, div, h1, h2, header, img, input, li, main_, p, section, text, ul)
+import Html exposing (Attribute, Html, a, div, h1, h2, header, img, input, li, main_, p, section, text, ul)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import Maybe.Extra
@@ -111,8 +111,28 @@ mainContent : Model -> Html Msg
 mainContent model =
     main_ []
         [ h1 [] [ text "Elm-slide" ]
-        , p [] [ text "Every playground needs a slide." ]
+        , p []
+            [ text "Every "
+            , a
+                [ href "https://github.com/simjes/playground"
+                , title "https://github.com/simjes/playground"
+                , target "_blank"
+                , rel "noopener noreferrer"
+                ]
+                [ text "playground" ]
+            , text " needs a slide."
+            ]
         , p [] [ text "The playground is a repository for creating small and simple applications to test out new technologies and frameworks." ]
+        , p []
+            [ text "Created by "
+            , a
+                [ href "https://simjes.dev"
+                , title "https://simjes.dev"
+                , target "_blank"
+                , rel "noopener noreferrer"
+                ]
+                [ text "simjes" ]
+            ]
         , slide model
         ]
 

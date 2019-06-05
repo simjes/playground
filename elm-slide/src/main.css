@@ -51,6 +51,10 @@ p {
   margin: 0;
 }
 
+a {
+  color: #24d8ff;
+}
+
 .search {
   margin-top: 30px;
 }
