@@ -49,9 +49,10 @@ const config: NuxtConfiguration = {
    */
   vuetify: {
     theme: {
-      primary: colors.blue.darken2,
+      primary: '#24D8FF',
       accent: colors.grey.darken3,
-      secondary: colors.amber.darken3,
+      secondary: '#ff6d00',
+      tertiary: '#16da00',
       info: colors.teal.lighten1,
       warning: colors.amber.base,
       error: colors.deepOrange.accent4,
