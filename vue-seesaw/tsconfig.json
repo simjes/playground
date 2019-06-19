@@ -17,5 +17,6 @@
       "@/*": ["./*"]
     },
     "types": ["@types/node", "@nuxt/vue-app"]
-  }
+  },
+  "exclude": ["node_modules", "types", "graphql"]
 }

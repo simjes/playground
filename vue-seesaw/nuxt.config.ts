@@ -1,6 +1,8 @@
 import NuxtConfiguration from '@nuxt/config';
 import colors from 'vuetify/es5/util/colors';
 
+require('dotenv').config();
+
 const config: NuxtConfiguration = {
   mode: 'universal',
   /*
@@ -42,7 +44,7 @@ const config: NuxtConfiguration = {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/vuetify', '@nuxtjs/pwa'],
+  modules: ['@nuxtjs/vuetify', '@nuxtjs/pwa', '@nuxtjs/apollo'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -67,6 +69,14 @@ const config: NuxtConfiguration = {
      ** You can extend webpack config here
      */
     // extend(config, ctx) {}
+  },
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: process.env.HTTP_ENDPOINT
+        // wsEndpoint: process.env.WS_ENDPOINT
+      }
+    }
   }
 };
 
