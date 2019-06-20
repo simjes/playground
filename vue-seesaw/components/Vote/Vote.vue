@@ -5,7 +5,7 @@
     <div>
       <ul>
         <li v-for="answer in poll.answers" :key="answer.id">
-          <v-btn color="primary" block outline>
+          <v-btn color="primary" block outline @click="vote(answer.id)">
             {{ answer.answer }}
           </v-btn>
         </li>

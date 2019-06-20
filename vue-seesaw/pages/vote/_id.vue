@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Vote from '~/components/Vote/Vote.vue';
-import votePoll from '~/graphql/votePoll';
+import votePoll from '~/graphql/getPoll';
 import { PollVariables, Poll, Poll_poll } from '~/graphql/types/Poll';
 
 @Component({

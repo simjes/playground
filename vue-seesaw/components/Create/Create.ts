@@ -31,9 +31,3 @@ export default class Create extends Vue {
     }
   }
 }
-
-/* TODO:
-  - validation: question and one answer required
-  - error handling
-  - loading
-  */
