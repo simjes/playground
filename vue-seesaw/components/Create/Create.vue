@@ -20,4 +20,4 @@
   </v-form>
 </template>
 
-<script src="./CreatePoll.ts"></script>
+<script src="./Create.ts"></script>

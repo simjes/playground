@@ -1,8 +1,9 @@
 import { Component, Vue } from 'vue-property-decorator';
-import tst from '~/graphql/createPoll';
+import createPoll from '~/graphql/createPoll';
+import { CreatePoll, CreatePollVariables } from '~/graphql/types/CreatePoll';
 
 @Component
-export default class CreatePoll extends Vue {
+export default class Create extends Vue {
   valid: boolean = false;
   question: string = '';
   answers: string[] = ['', '', ''];
@@ -13,22 +14,27 @@ export default class CreatePoll extends Vue {
     }
   }
 
-  async submit(event) {
+  async submit() {
     const validAnswers = this.answers.filter(a => a);
-    console.log(validAnswers);
-    const result = await this.$apollo.mutate({
-      mutation: tst,
+
+    const result = await this.$apollo.mutate<CreatePoll>({
+      mutation: createPoll,
       variables: {
         question: this.question,
         answers: validAnswers
-      }
+      } as CreatePollVariables
     });
 
     console.log(result);
+    const pollId = result.data.createPoll.id;
+    if (pollId) {
+      this.$router.push(`/vote/${pollId}`);
+    }
   }
 }
 
 /* TODO:
   - validation: question and one answer required
-  - add more answers
+  - error handling
+  - loading
   */
