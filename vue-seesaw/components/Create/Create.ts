@@ -25,7 +25,6 @@ export default class Create extends Vue {
       } as CreatePollVariables
     });
 
-    console.log(result);
     const pollId = result.data.createPoll.id;
     if (pollId) {
       this.$router.push(`/vote/${pollId}`);

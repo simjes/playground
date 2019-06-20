@@ -1,8 +1,11 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <!-- <vote /> -->
-      tst: {{ slug }}
+      <vote v-if="poll" :poll="poll" />
+
+      <div v-else>
+        The provided poll id is not valid
+      </div>
     </v-flex>
   </v-layout>
 </template>
@@ -10,25 +13,33 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Vote from '~/components/Vote/Vote.vue';
+import votePoll from '~/graphql/votePoll';
+import { PollVariables, Poll, Poll_poll } from '~/graphql/types/Poll';
 
 @Component({
   components: {
     Vote
   },
-  asyncData({ app, params }) {
+  async asyncData({ app, params }) {
     const provider = app.apolloProvider;
+    const id = params.id;
 
-    if (provider) {
-      const client = provider.defaultClient;
-      // const tst = client.query({query:})
+    if (!provider || !id) {
+      return {};
     }
 
+    const client = provider.defaultClient;
+    const result = await client.query<Poll>({ query: votePoll,
+      variables: {
+        id
+      } as PollVariables });
+
     return {
-      slug: params
+      poll: result.data.poll
     };
   }
 })
 export default class VotePage extends Vue {
-  slug: String = 'skal ikke vises';
+  poll: Poll_poll | null = null;
 }
 </script>
