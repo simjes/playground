@@ -1,8 +1,20 @@
 <template>
   <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <create />
-    </v-flex>
+    <h1>Vue-seesaw</h1>
+
+    <p>
+      The
+      <a
+        href="https://github.com/simjes/playground"
+        title="https://github.com/simjes/playground"
+        target="_blank"
+        rel="noopener noreferrer"
+      >playground</a>
+      is a repository for creating small and simple
+      applications to test out new technologies and frameworks
+    </p>
+
+    <create />
   </v-layout>
 </template>
 
@@ -17,8 +29,7 @@ import Create from '~/components/Create/Create';
     Logo,
     VuetifyLogo,
     Create
-  },
-  async asyncData() {}
+  }
 })
 export default class Index extends Vue {}
 </script>

@@ -2,7 +2,11 @@ import { Component, Vue } from 'vue-property-decorator';
 import createPoll from '~/graphql/createPoll';
 import { CreatePoll, CreatePollVariables } from '~/graphql/types/CreatePoll';
 
-@Component
+@Component({
+  $_veeValidate: {
+    validator: 'new'
+  }
+})
 export default class Create extends Vue {
   valid: boolean = false;
   question: string = '';
@@ -15,6 +19,13 @@ export default class Create extends Vue {
   }
 
   async submit() {
+    const allOk = await this.$validator.validateAll();
+
+    if (!allOk) {
+      console.log('not valid');
+      return;
+    }
+
     const validAnswers = this.answers.filter(a => a);
 
     const result = await this.$apollo.mutate<CreatePoll>({
