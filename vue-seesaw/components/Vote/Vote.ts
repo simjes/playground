@@ -6,8 +6,11 @@ import { Vote as VoteMutation, VoteVariables } from '~/graphql/types/Vote';
 @Component
 export default class Vote extends Vue {
   @Prop() readonly poll!: Poll_poll;
+  isLoading: boolean = false;
 
   async vote(id: string) {
+    this.isLoading = true;
+
     const result = await this.$apollo.mutate<VoteMutation>({
       mutation: vote,
       variables: {

@@ -5,6 +5,7 @@
       v-validate="'required'"
       data-vv-name="question"
       :disabled="isLoading"
+      :loading="isLoading"
       :error-messages="errors.first('question')"
       label="Question"
       required
