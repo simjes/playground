@@ -8,9 +8,10 @@ import { CreatePoll, CreatePollVariables } from '~/graphql/types/CreatePoll';
   }
 })
 export default class Create extends Vue {
-  valid: boolean = false;
   question: string = '';
   answers: string[] = ['', '', ''];
+  isLoading: boolean = false;
+  submitted: boolean = false;
 
   onLastChange() {
     if (this.answers.length < 10) {
@@ -19,14 +20,15 @@ export default class Create extends Vue {
   }
 
   async submit() {
-    const allOk = await this.$validator.validateAll();
+    this.submitted = true;
+    const formIsValid = await this.$validator.validateAll();
+    const validAnswers = this.answers.filter(a => a);
 
-    if (!allOk) {
-      console.log('not valid');
+    if (!formIsValid) {
       return;
     }
 
-    const validAnswers = this.answers.filter(a => a);
+    this.isLoading = true;
 
     const result = await this.$apollo.mutate<CreatePoll>({
       mutation: createPoll,
@@ -40,5 +42,10 @@ export default class Create extends Vue {
     if (pollId) {
       this.$router.push(`/vote/${pollId}`);
     }
+  }
+
+  get answerLength() {
+    const validAnswers = this.answers.filter(a => a);
+    return validAnswers.length;
   }
 }
