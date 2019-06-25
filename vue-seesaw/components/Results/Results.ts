@@ -6,13 +6,49 @@ import {
   PollResultSubscription_pollResult_node_poll,
   PollResultSubscriptionVariables
 } from '~/graphql/types/PollResultSubscription';
+import BarChart from './BarChart';
 
-@Component
+@Component({
+  components: {
+    BarChart
+  }
+})
 export default class Results extends Vue {
   @Prop() readonly poll!: PollResultQuery_poll;
   results:
     | PollResultQuery_poll
     | PollResultSubscription_pollResult_node_poll = this.poll;
+
+  chartOptions = {
+    legend: {
+      display: false
+    },
+    tooltips: {
+      enabled: false
+    },
+    scales: {
+      yAxes: [
+        {
+          gridLines: {
+            display: false,
+            drawBorder: false
+          },
+          ticks: {
+            fontColor: '#fff',
+            stepSize: 1,
+            beginAtZero: true,
+            padding: 20
+          },
+          barThickness: 40
+        }
+      ],
+      xAxes: [
+        {
+          display: false
+        }
+      ]
+    }
+  };
 
   mounted() {
     const pollResultObservable = this.$apollo.subscribe<{
@@ -33,5 +69,28 @@ export default class Results extends Vue {
           this.results = node.poll;
         }
       });
+  }
+
+  get chartData() {
+    if (!this.results.answers) {
+      return { datasets: [] };
+    }
+
+    const labels: string[] = [];
+    const data: number[] = [];
+    this.results.answers.forEach(item => {
+      labels.push(item.answer);
+      data.push(item.votes);
+    });
+
+    return {
+      labels,
+      datasets: [
+        {
+          backgroundColor: '#24D8FF',
+          data
+        }
+      ]
+    };
   }
 }
