@@ -1,10 +1,10 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { PollQuery_poll } from '~/graphql/types/PollQuery';
-import vote from '~/graphql/voteMutation';
 import {
   VoteMutation,
   VoteMutationVariables
 } from '~/graphql/types/VoteMutation';
+import vote from '~/graphql/voteMutation';
 
 @Component
 export default class Vote extends Vue {
