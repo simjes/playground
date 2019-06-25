@@ -1,11 +1,14 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Poll_poll } from '~/graphql/types/Poll';
-import vote from '~/graphql/vote';
-import { Vote as VoteMutation, VoteVariables } from '~/graphql/types/Vote';
+import { PollQuery_poll } from '~/graphql/types/PollQuery';
+import vote from '~/graphql/voteMutation';
+import {
+  VoteMutation,
+  VoteMutationVariables
+} from '~/graphql/types/VoteMutation';
 
 @Component
 export default class Vote extends Vue {
-  @Prop() readonly poll!: Poll_poll;
+  @Prop() readonly poll!: PollQuery_poll;
   isLoading: boolean = false;
 
   async vote(id: string) {
@@ -15,7 +18,7 @@ export default class Vote extends Vue {
       mutation: vote,
       variables: {
         id
-      } as VoteVariables
+      } as VoteMutationVariables
     });
 
     const pollId = result.data.vote.poll.id;

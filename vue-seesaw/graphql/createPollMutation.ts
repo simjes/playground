@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation CreatePoll($question: String!, $answers: [String!]!) {
+  mutation CreatePollMutation($question: String!, $answers: [String!]!) {
     createPoll(question: $question, answers: $answers) {
       id
     }

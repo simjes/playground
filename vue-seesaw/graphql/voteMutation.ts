@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation vote($id: ID!) {
+  mutation VoteMutation($id: ID!) {
     vote(answerId: $id) {
       poll {
         id

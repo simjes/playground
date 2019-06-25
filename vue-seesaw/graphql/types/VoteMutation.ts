@@ -3,23 +3,23 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: Vote
+// GraphQL mutation operation: VoteMutation
 // ====================================================
 
-export interface Vote_vote_poll {
+export interface VoteMutation_vote_poll {
   __typename: "Poll";
   id: string;
 }
 
-export interface Vote_vote {
+export interface VoteMutation_vote {
   __typename: "Answer";
-  poll: Vote_vote_poll;
+  poll: VoteMutation_vote_poll;
 }
 
-export interface Vote {
-  vote: Vote_vote;
+export interface VoteMutation {
+  vote: VoteMutation_vote;
 }
 
-export interface VoteVariables {
+export interface VoteMutationVariables {
   id: string;
 }

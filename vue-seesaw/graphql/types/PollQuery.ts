@@ -3,26 +3,26 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Poll
+// GraphQL query operation: PollQuery
 // ====================================================
 
-export interface Poll_poll_answers {
+export interface PollQuery_poll_answers {
   __typename: "Answer";
   id: string;
   answer: string;
 }
 
-export interface Poll_poll {
+export interface PollQuery_poll {
   __typename: "Poll";
   id: string;
   question: string;
-  answers: Poll_poll_answers[] | null;
+  answers: PollQuery_poll_answers[] | null;
 }
 
-export interface Poll {
-  poll: Poll_poll | null;
+export interface PollQuery {
+  poll: PollQuery_poll | null;
 }
 
-export interface PollVariables {
+export interface PollQueryVariables {
   id: string;
 }

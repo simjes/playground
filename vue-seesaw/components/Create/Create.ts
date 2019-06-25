@@ -1,6 +1,9 @@
 import { Component, Vue } from 'vue-property-decorator';
-import createPoll from '~/graphql/createPoll';
-import { CreatePoll, CreatePollVariables } from '~/graphql/types/CreatePoll';
+import createPoll from '~/graphql/createPollMutation';
+import {
+  CreatePollMutation,
+  CreatePollMutationVariables
+} from '~/graphql/types/CreatePollMutation';
 
 @Component({
   $_veeValidate: {
@@ -30,12 +33,12 @@ export default class Create extends Vue {
 
     this.isLoading = true;
 
-    const result = await this.$apollo.mutate<CreatePoll>({
+    const result = await this.$apollo.mutate<CreatePollMutation>({
       mutation: createPoll,
       variables: {
         question: this.question,
         answers: validAnswers
-      } as CreatePollVariables
+      } as CreatePollMutationVariables
     });
 
     const pollId = result.data.createPoll.id;

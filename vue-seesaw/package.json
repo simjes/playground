@@ -11,7 +11,7 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
     "lint:fix": "eslint --fix --ext .ts,.js,.vue --ignore-path .gitignore .",
-    "graphql:download": "apollo schema:download --endpoint=http://localhost:9000/graphql graphql-schema.json",
+    "graphql:download": "apollo schema:download --endpoint=http://localhost:4000 graphql-schema.json",
     "graphql:generate": "apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --includes=graphql/**/*.ts --tagName=gql --addTypename types"
   },
   "dependencies": {

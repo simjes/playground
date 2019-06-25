@@ -11,8 +11,8 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Vote from '~/components/Vote/Vote.vue';
-import votePoll from '~/graphql/getPoll';
-import { PollVariables, Poll, Poll_poll } from '~/graphql/types/Poll';
+import votePoll from '~/graphql/pollQuery';
+import { PollQueryVariables, PollQuery, PollQuery_poll } from '~/graphql/types/PollQuery';
 
 @Component({
   components: {
@@ -27,10 +27,10 @@ import { PollVariables, Poll, Poll_poll } from '~/graphql/types/Poll';
     }
 
     const client = provider.defaultClient;
-    const result = await client.query<Poll>({ query: votePoll,
+    const result = await client.query<PollQuery>({ query: votePoll,
       variables: {
         id
-      } as PollVariables });
+      } as PollQueryVariables });
 
     return {
       poll: result.data.poll
@@ -38,6 +38,6 @@ import { PollVariables, Poll, Poll_poll } from '~/graphql/types/Poll';
   }
 })
 export default class VotePage extends Vue {
-  poll: Poll_poll | null = null;
+  poll: PollQuery_poll | null = null;
 }
 </script>

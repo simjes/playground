@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query Poll($id: ID!) {
+  query PollQuery($id: ID!) {
     poll(where: { id: $id }) {
       id
       question

@@ -77,8 +77,8 @@ const config: NuxtConfiguration = {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.HTTP_ENDPOINT
-        // wsEndpoint: process.env.WS_ENDPOINT
+        httpEndpoint: process.env.HTTP_ENDPOINT,
+        wsEndpoint: process.env.WS_ENDPOINT
       }
     }
   }
