@@ -1,7 +1,18 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <results v-if="poll" :poll="poll" />
+  <v-layout
+    column
+    justify-center
+    align-center
+  >
+    <v-flex
+      xs12
+      sm8
+      md6
+    >
+      <results
+        v-if="poll"
+        :poll="poll"
+      />
 
       <div v-else>
         The provided poll id is not valid

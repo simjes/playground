@@ -1,5 +1,9 @@
 <template>
-  <v-layout column justify-center align-center>
+  <v-layout
+    column
+    justify-center
+    align-center
+  >
     <h1>Vue-seesaw</h1>
 
     <p>

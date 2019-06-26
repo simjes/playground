@@ -3,7 +3,10 @@
     <h1>{{ poll.question }}</h1>
 
     <ul>
-      <li v-for="answer in poll.answers" :key="answer.id">
+      <li
+        v-for="answer in poll.answers"
+        :key="answer.id"
+      >
         <v-btn
           block
           outline

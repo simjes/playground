@@ -11,7 +11,10 @@
       required
     />
 
-    <div v-for="(answer, index) in answers" :key="index">
+    <div
+      v-for="(answer, index) in answers"
+      :key="index"
+    >
       <v-text-field
         v-model="answers[index]"
         v-validate:answerLength="'min_value:2'"
@@ -24,7 +27,12 @@
       />
     </div>
 
-    <v-btn block color="secondary" type="submit" :loading="isLoading">
+    <v-btn
+      block
+      color="secondary"
+      type="submit"
+      :loading="isLoading"
+    >
       submit
     </v-btn>
   </v-form>
