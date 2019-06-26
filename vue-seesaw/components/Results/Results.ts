@@ -7,6 +7,7 @@ import {
   PollResultSubscriptionVariables
 } from '~/graphql/types/PollResultSubscription';
 import BarChart from './BarChart';
+import { chartOptions } from '~/utils/barChartUtil';
 
 @Component({
   components: {
@@ -19,55 +20,27 @@ export default class Results extends Vue {
     | PollResultQuery_poll
     | PollResultSubscription_pollResult_node_poll = this.poll;
 
-  chartOptions = {
-    legend: {
-      display: false
-    },
-    tooltips: {
-      enabled: false
-    },
-    scales: {
-      yAxes: [
-        {
-          gridLines: {
-            display: false,
-            drawBorder: false
-          },
-          ticks: {
-            fontColor: '#fff',
-            stepSize: 1,
-            beginAtZero: true,
-            padding: 20
-          },
-          barThickness: 40
-        }
-      ],
-      xAxes: [
-        {
-          display: false
-        }
-      ]
-    }
-  };
+  chartOptions = chartOptions;
 
   mounted() {
-    const pollResultObservable = this.$apollo.subscribe<{
-      data: PollResultSubscription;
-    }>({
-      query: pollResultSubscription,
-      variables: {
-        pollId: this.poll.id
-      } as PollResultSubscriptionVariables
-    });
+    const pollResultObservable = this.$apollo.subscribe<PollResultSubscription>(
+      {
+        query: pollResultSubscription,
+        variables: {
+          pollId: this.poll.id
+        } as PollResultSubscriptionVariables
+      }
+    );
 
     pollResultObservable
+      .filter(({ data }) => !!data && !!data.pollResult.node)
       .map(({ data }) => {
+        // @ts-ignore
         return data.pollResult.node;
       })
       .subscribe(node => {
-        if (node) {
-          this.results = node.poll;
-        }
+        // @ts-ignore
+        this.results = node.poll;
       });
   }
 
@@ -88,7 +61,12 @@ export default class Results extends Vue {
       datasets: [
         {
           backgroundColor: '#24D8FF',
-          data
+          data,
+          datalabels: {
+            color: '#fff',
+            align: 'end',
+            anchor: 'end'
+          }
         }
       ]
     };

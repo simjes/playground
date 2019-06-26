@@ -1,5 +1,6 @@
 import { HorizontalBar, mixins } from 'vue-chartjs';
 import { Component, Mixins, Prop } from 'vue-property-decorator';
+import 'chartjs-plugin-datalabels';
 const { reactiveProp } = mixins;
 
 @Component({

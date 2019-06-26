@@ -19,6 +19,7 @@
     "@nuxtjs/pwa": "^2.6.0",
     "@nuxtjs/vuetify": "0.5.5",
     "chart.js": "^2.8.0",
+    "chartjs-plugin-datalabels": "^0.6.0",
     "graphql": "14.2.1",
     "graphql-tag": "^2.10.1",
     "nuxt": "^2.0.0",
