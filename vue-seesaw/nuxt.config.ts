@@ -32,7 +32,7 @@ const config: NuxtConfiguration = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#24D8FF' },
   /*
    ** Global CSS
    */
