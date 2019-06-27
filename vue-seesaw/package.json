@@ -15,6 +15,7 @@
     "graphql:generate": "apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --includes=graphql/**/*.ts --tagName=gql --addTypename types"
   },
   "dependencies": {
+    "@bazzite/nuxt-netlify": "^0.1.1",
     "@nuxtjs/apollo": "^4.0.0-rc6",
     "@nuxtjs/pwa": "^2.6.0",
     "@nuxtjs/vuetify": "0.5.5",

@@ -44,7 +44,12 @@ const config: NuxtConfiguration = {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/vuetify', '@nuxtjs/pwa', '@nuxtjs/apollo'],
+  modules: [
+    '@nuxtjs/vuetify',
+    '@nuxtjs/pwa',
+    '@nuxtjs/apollo',
+    '@bazzite/nuxt-netlify'
+  ],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -81,7 +86,8 @@ const config: NuxtConfiguration = {
         wsEndpoint: process.env.WS_ENDPOINT
       }
     }
-  }
+  },
+  netlify: { mergeSecurityHeaders: true }
 };
 
 export default config;
