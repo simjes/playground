@@ -1,13 +1,14 @@
+import { FetchResult } from 'apollo-link';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import pollResultSubscription from '~/graphql/pollResultSubscription';
 import { PollResultQuery_poll } from '~/graphql/types/PollResultQuery';
 import {
   PollResultSubscription,
-  PollResultSubscription_pollResult_node_poll,
-  PollResultSubscriptionVariables
+  PollResultSubscriptionVariables,
+  PollResultSubscription_pollResult_node_poll
 } from '~/graphql/types/PollResultSubscription';
-import BarChart from './BarChart';
 import { chartOptions } from '~/utils/barChartUtil';
+import BarChart from './BarChart';
 
 @Component({
   components: {
@@ -23,25 +24,19 @@ export default class Results extends Vue {
   chartOptions = chartOptions;
 
   mounted() {
-    const pollResultObservable = this.$apollo.subscribe<PollResultSubscription>(
-      {
-        query: pollResultSubscription,
-        variables: {
-          pollId: this.poll.id
-        } as PollResultSubscriptionVariables
-      }
-    );
+    const pollResult = this.$apollo.subscribe<PollResultSubscription>({
+      query: pollResultSubscription,
+      variables: {
+        pollId: this.poll.id
+      } as PollResultSubscriptionVariables
+    });
 
-    pollResultObservable
-      .filter(({ data }) => !!data && !!data.pollResult.node)
-      .map(({ data }) => {
-        // @ts-ignore
-        return data.pollResult.node;
-      })
-      .subscribe(node => {
-        // @ts-ignore
+    pollResult.subscribe(results => {
+      const node = results.data ? results.data.pollResult.node : null;
+      if (node) {
         this.results = node.poll;
-      });
+      }
+    });
   }
 
   get chartData() {

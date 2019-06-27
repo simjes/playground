@@ -36,6 +36,11 @@
     >
       submit
     </v-btn>
+
+    <feedback
+      v-if="error"
+      text="Unable to create poll"
+    />
   </v-form>
 </template>
 

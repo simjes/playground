@@ -21,6 +21,11 @@
         </v-btn>
       </li>
     </ul>
+
+    <feedback
+      v-if="error"
+      text="Unable to register vote"
+    />
   </section>
 </template>
 
