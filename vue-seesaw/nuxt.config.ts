@@ -4,7 +4,7 @@ import colors from 'vuetify/es5/util/colors';
 require('dotenv').config();
 
 const config: NuxtConfiguration = {
-  mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
