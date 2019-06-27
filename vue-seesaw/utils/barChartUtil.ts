@@ -10,6 +10,8 @@ export const chartOptions = {
       right: 50
     }
   },
+  responsive: true,
+  maintainAspectRatio: false,
   scales: {
     yAxes: [
       {

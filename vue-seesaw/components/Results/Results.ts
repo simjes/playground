@@ -71,4 +71,14 @@ export default class Results extends Vue {
       ]
     };
   }
+
+  get canvasContainerStyles() {
+    const answers = this.results.answers;
+    const rows = answers ? answers.length : 0;
+    return {
+      height: `${60 * rows}px`,
+      width: '80vw',
+      position: 'relative'
+    };
+  }
 }

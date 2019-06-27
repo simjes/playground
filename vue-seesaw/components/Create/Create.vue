@@ -23,6 +23,7 @@
         :loading="isLoading"
         :error-messages="errors.first('answers') && submitted ? 'At least two options are required to create a poll' : null"
         :label="'Poll option #' + (index + 1)"
+        maxlength="15"
         v-on="(index === answers.length - 1) ? {keydown: onLastChange} : {}"
       />
     </div>

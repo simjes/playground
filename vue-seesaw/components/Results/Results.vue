@@ -8,6 +8,7 @@
 
     <bar-chart
       v-if="poll.answers"
+      :styles="canvasContainerStyles"
       :options="chartOptions"
       :chart-data="chartData"
     />
