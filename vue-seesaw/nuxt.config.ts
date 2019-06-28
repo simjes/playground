@@ -87,7 +87,15 @@ const config: NuxtConfiguration = {
       }
     }
   },
-  netlify: { mergeSecurityHeaders: true }
+  netlify: {
+    redirects: [
+      {
+        from: '/*',
+        to: '/index.html',
+        status: 200
+      }
+    ]
+  }
 };
 
 export default config;
