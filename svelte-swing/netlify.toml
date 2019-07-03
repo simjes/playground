@@ -1,0 +1,21 @@
+[build]
+  base = "svelte-swing"
+  command = "npm run build"
+  functions = "functions"
+  publish = "__sapper__/build"
+
+  ## Uncomment to use this redirect for Single Page Applications like create-react-app. 
+  ## Not needed for static site generators.
+  # [[redirects]]
+  #  from = "/*"
+  #  to = "/index.html"
+  #  status = 200
+  
+  ## (optional) Settings for Netlify Dev
+  ## https://github.com/netlify/netlify-dev-plugin#project-detection
+  [dev] 
+   command = "npm run dev"
+   port = 3000
+   publish = "__sapper__/dev"
+
+  ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/ 
