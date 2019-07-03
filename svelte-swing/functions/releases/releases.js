@@ -54,14 +54,14 @@ exports.handler = async function(event, context) {
     const gameData = await gamesResponse.json();
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        ...releaseDates.map(r => ({
+      body: JSON.stringify(
+        releaseDates.map(r => ({
           id: r.game,
           date: r.date,
           name: gameData.find(g => g.id === r.game).name,
           platform: r.platform,
         })),
-      }),
+      ),
     };
   } catch (err) {
     console.log(err); // output to netlify function log
