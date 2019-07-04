@@ -65,4 +65,4 @@
 
 <Search on:search={dostuff} />
 
-<Releases bind:releases={upcomingGames} />
+<Releases bind:games={upcomingGames} />
