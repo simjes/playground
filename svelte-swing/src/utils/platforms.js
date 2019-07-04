@@ -3,16 +3,8 @@ const platforms = {
     name: 'Playstation 4',
     icon: '',
   },
-  167: {
-    name: 'Playstation 5',
-    icon: '',
-  },
   49: {
     name: 'Xbox One',
-    icon: '',
-  },
-  37: {
-    name: 'Nintendo 3DS',
     icon: '',
   },
   130: {
