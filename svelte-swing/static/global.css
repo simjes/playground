@@ -54,3 +54,8 @@ code {
     font-size: 16px;
   }
 }
+
+.no-results {
+  display: flex;
+  justify-content: center;
+}

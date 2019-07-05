@@ -1,2 +1,1 @@
-export const API_URL = process.env.API_URL;
-export const IS_BROWSER = process.browser;
+export const API_URL = process.browser ? '' : process.env.API_URL;

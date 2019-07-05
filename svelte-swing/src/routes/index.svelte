@@ -1,12 +1,10 @@
 <script context="module">
   import to from "await-to-js";
-  import { API_URL, IS_BROWSER } from "../utils/environment.js";
+  import { API_URL } from "../utils/environment.js";
 
   export async function preload(page, session) {
-    const apiBaseUrl = IS_BROWSER ? "" : API_URL;
-
     const [err, result] = await to(
-      this.fetch(`${apiBaseUrl}/.netlify/functions/releases`)
+      this.fetch(`${API_URL}/.netlify/functions/releases`)
     );
 
     const upcomingGames = await result.json();
@@ -18,7 +16,7 @@
   import Releases from "../components/Releases.svelte";
   import Search from "../components/Search.svelte";
 
-  export let upcomingGames;
+  export let upcomingGames = [];
 
   const search = async event => {
     console.log(event.detail.searchTerm);
@@ -44,6 +42,10 @@
       font-size: 4em;
     }
   }
+
+  .releases {
+    margin-top: 30px;
+  }
 </style>
 
 <svelte:head>
@@ -67,4 +69,10 @@
 
 <Search on:search={search} />
 
-<Releases bind:games={upcomingGames} />
+<div class="releases">
+  {#if upcomingGames.length > 0}
+    <Releases bind:games={upcomingGames} />
+  {:else}
+    <div class="no-results">No upcoming games</div>
+  {/if}
+</div>

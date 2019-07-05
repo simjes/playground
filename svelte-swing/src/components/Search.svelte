@@ -15,7 +15,9 @@
 </script>
 
 <style>
-
+  .nes-field {
+    display: flex;
+  }
 </style>
 
 <div class="nes-field">
