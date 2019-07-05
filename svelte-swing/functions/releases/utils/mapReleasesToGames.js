@@ -10,10 +10,11 @@ const mapReleasesToGames = releases => {
   });
 
   releases.forEach(release => {
-    games[release.game].platforms = [
-      ...games[release.game].platforms,
-      release.platform,
-    ];
+    const platforms = games[release.game].platforms;
+
+    if (!platforms.includes(release.platform)) {
+      games[release.game].platforms = [...platforms, release.platform];
+    }
   });
 
   return Object.values(games).sort((a, b) => a.releaseDate - b.releaseDate);
