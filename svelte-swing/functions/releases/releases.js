@@ -14,8 +14,6 @@ const fetchConfig = {
 
 exports.handler = async function(event, context) {
   const now = Math.floor(Date.now() / 1000);
-  const limit = 50;
-  const offset = 0;
 
   try {
     const releaseResponse = await fetch(`${baseUrl}/release_dates`, {
@@ -24,8 +22,7 @@ exports.handler = async function(event, context) {
         fields date, game, platform;
         where date > ${now} & platform = (48, 49, 130, 6);
         sort date asc;
-        limit ${limit};
-        offset ${offset};
+        limit 50;
       `,
     });
     if (!releaseResponse.ok) {
