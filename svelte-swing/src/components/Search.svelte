@@ -27,6 +27,6 @@
     class="nes-input"
     bind:value={searchTerm}
     on:input={search}
-    placeholder="Search for upcoming releases"
+    placeholder="Search for games"
     autocomplete="off" />
 </div>

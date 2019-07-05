@@ -41,4 +41,14 @@ const getGamesByIds = gameIds => {
   );
 };
 
-module.exports = { getUpcomingReleases, getGamesByIds };
+const searchGames = search => {
+  return igdbClient(
+    '/games',
+    `
+      fields *;
+      search "${search}";
+    `,
+  );
+};
+
+module.exports = { getUpcomingReleases, getGamesByIds, searchGames };
