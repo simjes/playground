@@ -1,10 +1,12 @@
 <script context="module">
   import to from "await-to-js";
-  import { API_URL } from "../utils/environment.js";
+  import { API_URL, IS_BROWSER } from "../utils/environment.js";
 
   export async function preload(page, session) {
+    const apiBaseUrl = IS_BROWSER ? "" : API_URL;
+
     const [err, result] = await to(
-      this.fetch(`${API_URL}/.netlify/functions/releases`)
+      this.fetch(`${apiBaseUrl}/.netlify/functions/releases`)
     );
 
     const upcomingGames = await result.json();
@@ -18,7 +20,7 @@
 
   export let upcomingGames;
 
-  const dostuff = async event => {
+  const search = async event => {
     console.log(event.detail.searchTerm);
   };
 </script>
@@ -63,6 +65,6 @@
   technologies and frameworks
 </p>
 
-<Search on:search={dostuff} />
+<Search on:search={search} />
 
 <Releases bind:games={upcomingGames} />
